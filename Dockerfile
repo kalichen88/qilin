@@ -6,8 +6,6 @@ ENV TIMEZONE=${timezone:-Asia/Shanghai} \
     SCAN_CACHEABLE=(true)
 
 RUN set -ex \
-    && cd /etc/php8 \
-    && { echo "upload_max_filesize=128M"; echo "post_max_size=128M"; echo "memory_limit=1G"; echo "date.timezone=${TIMEZONE}"; } | tee conf.d/99_overrides.ini \
     && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 
 WORKDIR /opt/www
