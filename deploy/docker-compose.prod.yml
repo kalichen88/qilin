@@ -18,6 +18,8 @@ services:
     image: mysql:8.0
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment: { MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: wl, MYSQL_USER: wl, MYSQL_PASSWORD: wl }
+    volumes:
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
     healthcheck: { test: ["CMD","mysqladmin","ping","-h","localhost"], interval: 5s, timeout: 3s, retries: 20 }
   redis:
     image: redis:7
