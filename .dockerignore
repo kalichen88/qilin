@@ -1,0 +1,15 @@
+.git
+.github
+.gitignore
+deploy
+vendor
+node_modules
+frontend/*/node_modules
+frontend/dist-*
+database/*.sql
+*.log
+.env
+runtime/logs
+runtime/container
+runtime/session
+bin/pay/**/log.txt
