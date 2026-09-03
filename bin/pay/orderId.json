@@ -1,0 +1,14 @@
+    [
+  "trade_no",
+  "record",
+  "order_id",
+  "merchantOrderCode",
+  "billNo",
+  "out_trade_no",
+  "payId",
+  "order",
+  "order_sn",
+  "orderid",
+  "mchOrderNo",
+  "merchant_order_sn"
+]

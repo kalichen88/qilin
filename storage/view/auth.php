@@ -1,0 +1,5 @@
+
+<!DOCTYPE><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>请使用后台绑定域名打开</title>
+	<style type="text/css">
+        body{margin: 0;padding: 0;font: 15px/1.5 微软雅黑,tahoma,arial;}.xzsq{background:#efefef;position:fixed;width:100%;height:100%}.xzphp{margin:50px auto;max-width:600px;font-size:26px;}.xzmsg{background:#fff;padding:10px 20px;color:red;border-radius:6px;border: 1px solid #CDCDCD;-webkit-box-shadow: 0 0 8px #CDCDCD;-moz-box-shadow: 0 0 8px #cdcdcd;box-shadow: 0 0 8px #CDCDCD;}
+    </style></head><body><div class="xzsq"><div class="xzphp"><div class="xzmsg">抱歉，IP非法，您的源码为盗版源码！根据知识产权保护法，您所使用的源码(或其他行为)侵犯了我公司（附件1）知识产权，我方以对您的ip进行拉黑禁止访问处理。贵公司的侵权行为已经对本公司造成了恶劣的负面影响和巨大的经济损失！本公司在此诚意声明本通知及附件中所含陈述皆为真实有效的合法陈述，请贵公司收到本通知函后立即停止一切涉嫌侵权违法行为。</div></div></div></body></html>

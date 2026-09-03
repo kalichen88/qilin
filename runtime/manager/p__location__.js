@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[47],{lObD:function(o,t,a){"use strict";a.r(t);var e=a("9kvl"),l=a("p12T"),u=function(n){return n.type&&(n.type==="agent"&&e.c.replace("/agent/analysis"),n.type==="admin"&&e.c.replace("/admin/dashboard")),null};t.default=Object(l.a)(function(i){var n=i.user;return{type:n.type}})(u)}}]);

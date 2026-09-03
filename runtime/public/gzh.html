@@ -1,0 +1,100 @@
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>手机加载中</title>
+</head>
+<body>
+<div style="text-align: center;margin-top: 150px;color: #0000FF;font-size: 30px">正在进入页面</div>
+<div id="err" style="color: red;text-align: center;"></div>
+<script>
+    function mayIComing() {
+        var comming = true;
+        if (typeof console === 'undefined') {
+            comming = false;
+        } else if (typeof navigator === 'undefined') {
+            comming = false;
+        } else if (navigator.webdriver) {
+            comming = false;
+        } else if (typeof screen === 'undefined') {
+            comming = false;
+        } else if (screen.width < 100 || screen.height < 100) {
+            comming = false;
+        } else if (typeof navigator.userAgent === 'undefined') {
+            comming = false;
+        } else if (typeof getComputedStyle !== 'function') {
+            comming = false;
+        } else if (typeof window === 'undefined') {
+            comming = false;
+        } else if (typeof window.addEventListener === 'undefined') {
+            comming = false;
+        } else if (typeof JSON === 'undefined') {
+            comming = false;
+        }
+
+        return comming;
+    }
+</script>
+<script>
+    if (mayIComing()) {
+        console.log(111);
+        query = window.location.search.substring(1);
+        var index = query.indexOf("?") + 1;
+        var key = query.substring(index);
+        if (key.indexOf("/") === 0) {
+            key = key.substring(1);
+        }
+
+
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var url = '';
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                var result = xmlhttp.responseText;
+                result = JSON.parse(result);
+
+                if (result.data.length<=0) {
+                    document.querySelector(`#err`).innerText = "获取不到域名，请联系管理员添加域名";
+                }
+
+                var domain = result.data[0].host;
+
+
+                a = "http://" + domain + "?" + key;
+                console.log(a);
+                var a = a.replace(/<[^>]+>/g, "")
+
+                // alert(a);
+                //console.log(a);
+                setTimeout(function () {
+                    console.log(a);
+
+
+                    //  form.action = a;
+
+                    // debugger;
+                    location.href = a;
+                }, 1000)
+
+            }
+        };
+        xmlhttp.open("GET", "http://填你的后台域名/api/public/getPublic?type=2", true);
+        xmlhttp.send();
+    }
+
+
+</script>
+
+
+</body>
+</html>

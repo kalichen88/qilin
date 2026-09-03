@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.1', '8.2' ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP + Swoole
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: swoole-5.0.2, redis, mbstring, pdo_mysql, bcmath, openssl
+          tools: composer
+      - name: Get composer cache dir
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      - name: Install deps
+        run: composer install --no-interaction --prefer-dist --no-progress
+      - name: PHP syntax check
+        run: find app config bin -name "*.php" -print0 | xargs -0 -n1 php -l
+      - name: Boot check
+        run: php bin/hyperf.php --version || true

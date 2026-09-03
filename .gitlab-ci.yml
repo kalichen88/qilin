@@ -1,0 +1,16 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: hyperf/hyperf:8.2-alpine-v3.18-swoole
+  services:
+    - name: mysql:8.0
+  variables:
+    DB_HOST: mysql
+    DB_DATABASE: wl
+    DB_USERNAME: wl
+    DB_PASSWORD: wl
+  script:
+    - composer install --no-interaction --prefer-dist
+    - find app config bin -name "*.php" -print0 | xargs -0 -n1 php -l

@@ -1,0 +1,3 @@
+支付宝后台记得配置授权回调地址
+
+http://域名/view/pay/alipaynotify

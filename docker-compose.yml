@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: wanli-v2-app
+    ports:
+      - "9501:9501"
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: "true"
+      DB_HOST: mysql
+      DB_DATABASE: wl
+      DB_USERNAME: wl
+      DB_PASSWORD: wl
+      REDIS_HOST: redis
+      JWT_SECRET: dev-change-me
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  mysql:
+    image: mysql:8.0
+    container_name: wanli-v2-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wl
+      MYSQL_USER: wl
+      MYSQL_PASSWORD: wl
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./database/1.49数据库.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:7
+    container_name: wanli-v2-redis
+    ports:
+      - "6379:6379"

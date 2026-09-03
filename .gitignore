@@ -1,0 +1,23 @@
+.env
+/runtime/*
+!/runtime/view/
+!/runtime/manager/
+!/runtime/public/
+!/runtime/static/
+!/runtime/video/
+!/runtime/dynamic/
+/storage/view/compiled
+/vendor/
+composer.lock
+*.log
+.phpunit.result.cache
+
+# 前端
+/frontend/*/node_modules/
+/frontend/dist-*
+
+# 敏感：数据库基线含第三方商户密钥，不入库（用 database/setup.sql + 结构迁移）
+/database/*.sql
+
+# 支付子进程运行日志
+/bin/pay/**/log.txt
