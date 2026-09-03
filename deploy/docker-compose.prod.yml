@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  app:
+    build: ../.
+    container_name: wanli-v2-app
+    ports: ["9501:9501"]
+    environment:
+      APP_ENV: prod
+      DB_HOST: mysql
+      DB_DATABASE: wl
+      DB_USERNAME: ${DB_USERNAME:-wl}
+      DB_PASSWORD: ${DB_PASSWORD:-wl}
+      REDIS_HOST: redis
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      PAY_DRIVER: ${PAY_DRIVER:-test}
+    depends_on: [mysql, redis]
+  mysql:
+    image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment: { MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: wl, MYSQL_USER: wl, MYSQL_PASSWORD: wl }
+    healthcheck: { test: ["CMD","mysqladmin","ping","-h","localhost"], interval: 5s, timeout: 3s, retries: 20 }
+  redis:
+    image: redis:7
