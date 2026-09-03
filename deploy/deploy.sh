@@ -6,5 +6,5 @@ echo "[deploy] pull ..."
 git pull --rebase origin main
 [ -f .env ] || { cp .env.example .env; echo "[deploy] 已生成 .env，请编辑 DB/Redis/JWT_SECRET/PAY_DRIVER 等"; }
 echo "[deploy] docker compose up ..."
-docker compose -f docker-compose.prod.yml up -d --build
+ docker compose -f deploy/docker-compose.prod.yml up -d --build
 echo "[deploy] done. 健康检查: curl http://127.0.0.1:9501/health"
