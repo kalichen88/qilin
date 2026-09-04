@@ -484,6 +484,8 @@ CREATE TABLE `video_video` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='片库';
 INSERT INTO `video_admin` VALUES (1,'admin','admin','超级管理员',1,'2021-06-23 05:43:55','2021-09-04 18:26:31'),(2,'ys','123456','演示管理员（无权限）',0,'2021-06-23 05:43:55','2021-06-23 05:43:55');
+-- 默认代理：dl1 / dl1（演示代理，group=1 代理权限）
+INSERT INTO `video_agent` VALUES (NULL,'代理演示','dl1','dl1',1,1,'',1,NULL,NULL,NULL,NULL,0,0,0,0,0,0,25,5,0,0.00,NULL,NULL,NOW(),NOW(),NULL,NULL,NULL,NULL);
 INSERT INTO `video_system` VALUES (1,1,'万利云赏','万利云赏','卧久者，行必远，\n\n伏久者，飞必高，\n\n鱼沉于水，鸟乘于风，草木乘于时，\n\n芝兰生于深林，\n不以无人而不芳，不因清寒而萎缩。\n气若兰兮长不改，心若兰兮终不移。\n\n                               ————潜龙勿用','https://www.hualigs.cn/image/60d33cfa68b63.jpg','/public/uploads/tp/bj.jpg',NULL,0,'',1,10,25,5,8,9,1,500,9999,3,3,'0','填你们的微信公众号appid','填你们的微信公众号secret','http://把我改成你的域名/get-weixin-code.html',15,1,NULL,1,1,NULL,NULL,NULL,NULL,1,1,1,88,1,1,188,1,1,288,NULL,'2021-06-23 05:43:55','2021-10-28 13:20:29',1,'https://www.douyu.com','https://www.kuaishou.com/','https://www.douyin.com/','https://www.douyin.com/','http://sinaurl.cn/R7RZOmB',6,5,30,'/public/uploads/662062fceea29dd53de98a76a2ecdaff.jpg');
 
 SET FOREIGN_KEY_CHECKS=1;
