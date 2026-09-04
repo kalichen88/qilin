@@ -5,5 +5,5 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import App from './App.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ConfigProvider locale={zhCN}><BrowserRouter><App /></BrowserRouter></ConfigProvider>
+  <ConfigProvider locale={zhCN}><BrowserRouter basename={import.meta.env.BASE_URL}><App /></BrowserRouter></ConfigProvider>
 );
