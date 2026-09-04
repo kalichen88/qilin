@@ -70,9 +70,7 @@ class CommonController extends AbstractController
     #[GetMapping(path: '/common/auth')]
     public function auth(): mixed
     {
-        $token = $this->request->getHeaderLine('Authorization');
-        $token = str_replace('Bearer ', '', $token);
-        $payload = $token ? JwtUtil::verify($token) : null;
+        $payload = JwtUtil::payloadFromRequest($this->request);
         if (! $payload) {
             throw new BusinessException('账号或密码错误', ErrorCode::LOGIN_FAILED);
         }

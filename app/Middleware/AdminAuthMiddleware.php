@@ -16,9 +16,7 @@ class AdminAuthMiddleware implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $token = $request->getHeaderLine('Authorization');
-        $token = str_replace('Bearer ', '', $token);
-        $payload = $token ? JwtUtil::verify($token) : null;
+        $payload = JwtUtil::payloadFromRequest($request);
 
         if (! $payload || ($payload['scope'] ?? '') !== 'admin') {
             throw new BusinessException('未授权', ErrorCode::UNAUTHORIZED);

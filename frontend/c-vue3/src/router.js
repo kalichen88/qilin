@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from './views/Home.vue';
 import Detail from './views/Detail.vue';
 import Tousu from './views/Tousu.vue';
 import MyVideos from './views/MyVideos.vue';
 import Pay from './views/Pay.vue';
 export default createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     { path: '/', component: Home },
     { path: '/video/:id', component: Detail },

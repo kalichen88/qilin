@@ -6,6 +6,7 @@ use App\Common\JwtUtil;
 use App\Common\Response;
 use App\Model\Admin;
 use App\Model\Agent;
+use Hyperf\HttpMessage\Cookie\Cookie;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\PostMapping;
@@ -25,7 +26,8 @@ class AuthProController extends AbstractController
         $admin = Admin::query()->where('user', $username)->first();
         if ($admin && $admin->password === $password && (int) $admin->flag === 1) {
             $token = JwtUtil::issue('admin', (int) $admin->id, ['name' => $admin->name]);
-            return $this->response->json([
+            $resp = $this->response->withCookie(new Cookie('wanli_token', $token, time() + 86400, '/', '', false, true));
+            return $resp->json([
                 'status' => 'ok', 'type' => 'account', 'currentAuthority' => 'admin',
                 'token' => $token, 'name' => $admin->name, 'userid' => $admin->id,
             ]);
@@ -34,7 +36,8 @@ class AuthProController extends AbstractController
         $agent = Agent::query()->where('user', $username)->first();
         if ($agent && $agent->password === $password) {
             $token = JwtUtil::issue('agent', (int) $agent->id, ['name' => $agent->name]);
-            return $this->response->json([
+            $resp = $this->response->withCookie(new Cookie('wanli_token', $token, time() + 86400, '/', '', false, true));
+            return $resp->json([
                 'status' => 'ok', 'type' => 'account', 'currentAuthority' => 'agent',
                 'token' => $token, 'name' => $agent->name, 'userid' => $agent->id,
             ]);
@@ -46,9 +49,7 @@ class AuthProController extends AbstractController
     #[GetMapping(path: '/api/currentUser')]
     public function currentUser(): mixed
     {
-        $header = $this->request->getHeaderLine('Authorization');
-        $token = str_replace('Bearer ', '', $header);
-        $payload = $token ? JwtUtil::verify($token) : null;
+        $payload = JwtUtil::payloadFromRequest($this->request);
         if ($payload) {
             return $this->response->json([
                 'name' => $payload['name'] ?? '管理员',

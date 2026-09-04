@@ -7,6 +7,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Hyperf\Context\ApplicationContext;
 use Hyperf\Redis\Redis;
+use Psr\Http\Message\ServerRequestInterface;
 
 class JwtUtil
 {
@@ -51,6 +52,29 @@ class JwtUtil
         }
 
         return $payload;
+    }
+
+    /**
+     * 从请求中取 token（优先 Authorization 头，其次 Cookie，兼容旧 Ant Design Pro 前端）。
+     */
+    public static function tokenFromRequest(ServerRequestInterface $request): string
+    {
+        $token = trim(str_replace('Bearer', '', $request->getHeaderLine('Authorization')));
+        if ($token !== '') {
+            return $token;
+        }
+
+        $cookies = $request->getCookieParams();
+        return (string) ($cookies['wanli_token'] ?? '');
+    }
+
+    /**
+     * 校验请求中携带的身份；失败返回 null。
+     */
+    public static function payloadFromRequest(ServerRequestInterface $request): ?array
+    {
+        $token = self::tokenFromRequest($request);
+        return $token !== '' ? self::verify($token) : null;
     }
 
     public static function revoke(string $token): void
