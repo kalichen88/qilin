@@ -65,4 +65,10 @@ class AuthProController extends AbstractController
     {
         return $this->response->json([]);
     }
+
+    #[GetMapping(path: '/api/fake_chart_data')]
+    public function fakeChartData(): mixed
+    {
+        return $this->response->json([]);
+    }
 }
