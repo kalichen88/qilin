@@ -1,9 +1,10 @@
 import axios from 'axios';
 const http = axios.create({ baseURL: '/' });
-http.interceptors.request.use(c => { const t = localStorage.getItem('token'); if (t) c.headers.Authorization = 'Bearer ' + t; return c; });
+http.interceptors.request.use(c => { const t = sessionStorage.getItem('token'); if (t) c.headers.Authorization = 'Bearer ' + t; return c; });
 http.interceptors.response.use(r => r.data, e => Promise.reject(e));
 export const api = {
   login: (user, password) => http.post('/common/login', { user, password }),
+  auth: () => http.get('/common/auth'),
   chart: () => http.get('/api/adminChart/getNowData'),
   salesDay: () => http.get('/api/adminChart/getSalesDay'),
   list: (base, params = {}) => http.get(base + '/get', { params: { page: 1, limit: 20, ...params } }),
