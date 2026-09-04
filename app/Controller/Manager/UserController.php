@@ -43,7 +43,13 @@ class UserController extends AbstractController
 
         // 未登录：返回 code=100，前端 replace('/user/login')
         if (! $payload) {
-            return $this->response->json(['code' => 100, 'msg' => '请登录', 'data' => null]);
+            // 旧前端在 code=100 时仍会 dispatch saveCurrentUser(payload: data)，
+            // 因此 data 必须是非 null 对象，否则 reducer 读到 null.type 会抛错。
+            return $this->response->json([
+                'code' => 100,
+                'msg' => '请登录',
+                'data' => ['type' => 'guest', 'rule' => [], 'info' => ['name' => '', 'userid' => 0]],
+            ]);
         }
 
         $scope = (string) ($payload['scope'] ?? 'admin');
