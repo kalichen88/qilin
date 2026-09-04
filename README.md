@@ -146,5 +146,13 @@ POST /api/media/import  -> {"code":0,"msg":"ok","data":{"total":1,"success":1,..
 - 构建产物已拷回 `frontend/dist-c-view`、`frontend/dist-admin`，可交给后端 `/`、`/manager`（或新路径）静态托管。
 - 构建方式：`cd frontend/c-vue3 && npm i && npm run build`；`cd frontend/admin-react18 && npm i && npm run build`。
 
+## 线上部署（wanli.jiekebao.top）
+- 域名：`https://wanli.jiekebao.top`（Cloudflare 边缘 HTTPS + 源站 Nginx 443 自签，Nginx 反代 `127.0.0.1:9501`）。
+- 管理端（原版 Ant Design Pro）：`https://wanli.jiekebao.top/manager/`，默认 `admin/admin`。
+- C 端（原版 Vue）：`https://wanli.jiekebao.top/`。
+- 现代迁移前端：Vue3 `https://wanli.jiekebao.top/c/`、React18 `https://wanli.jiekebao.top/admin/`。
+- 服务器：`150.109.115.114`，Docker + Compose，工作目录 `/opt/wanli-v2`；`deploy/nginx-wanli.conf` 为 Nginx 配置。
+- CI 自动部署：`push main` → GitHub Actions(appleboy/ssh-action) → `deploy/deploy.sh` → `docker compose up -d --build`（Secrets：SERVER_HOST/SERVER_USER/SERVER_SSH_KEY）。
+
 ## 待办（R1+）
 见 `docs/09-R0任务卡与阶段计划.md`。
